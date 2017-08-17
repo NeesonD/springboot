@@ -8,9 +8,16 @@
 * [ ] 分页
 
 ### 1.2 filter/listener/servlet在springboot中的使用
+* [x] 使用注解的形式
+* [x] 使用spring集成的方式
 
-### 1.3 springboot+mina实现长连接
+TODO
+* [ ] springboot+mina实现长连接
 
-### 1.4 springboot+Scheduled/Quartz实现定时
+* [ ] springboot+Scheduled/Quartz实现定时
+
+* [ ] springboot+netty实现聊天室
+
+* [ ] springboot+redis
 
 
