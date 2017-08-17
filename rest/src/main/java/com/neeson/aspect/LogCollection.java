@@ -2,13 +2,18 @@ package com.neeson.aspect;
 
 import com.google.gson.Gson;
 import com.neeson.annotation.ControllerLog;
+import com.neeson.domain.Log;
+import com.neeson.service.LogService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -24,7 +29,9 @@ import java.lang.reflect.Method;
 @Slf4j
 public class LogCollection {
 
-    ThreadLocal<Long> startTime = new ThreadLocal<>();
+    @Autowired
+    private LogService logService;
+    //ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     @Pointcut("@annotation(com.neeson.annotation.ControllerLog)")
     public void controllerAspect() {
@@ -63,19 +70,41 @@ public class LogCollection {
 //    }
 
     @Around("controllerAspect()")
-    public void logger(ProceedingJoinPoint pjp) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        String requestParam = getRequestParam(pjp);
-        log.info("请求参数：" + requestParam);
-//        Object[] args = pjp.getArgs();
-//        for (int i = 0; i < args.length; i++) {
-//            log.info("第" + (i + 1) + "个参数为:" + args[i]);
-//        }
-        Object proceed = pjp.proceed();
-        log.info("运行结果：" + proceed);
-        long endTime = System.currentTimeMillis();
-        log.info("运行时间：" + (endTime - startTime));
+    public Object logger(ProceedingJoinPoint pjp) throws Throwable {
+        Object proceed = null;
+        try {
+            long startTime = System.currentTimeMillis();
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            if (attributes == null) {
+                return "";
+            }
+            HttpServletRequest request = attributes.getRequest();
+            String IP = request.getRemoteAddr();
+            String localAddr = request.getLocalAddr();
+            String requestParam = getRequestParam(pjp);
+            String methodDesctiption = getMethodDesctiption(pjp);
+            log.info("请求参数：" + requestParam);
+            //执行目标方法
+            proceed = pjp.proceed();
 
+            log.info("运行结果：" + proceed);
+            long endTime = System.currentTimeMillis();
+            long runTime = endTime - startTime;
+            log.info("运行时间：" + runTime);
+            Log log = new Log();
+            log.setClientIp(IP);
+            log.setDescription(methodDesctiption);
+            log.setInterfaceMethod(pjp.getClass().getName() + "." + pjp.getSignature().getName() + "()");
+            log.setRequestParam(requestParam);
+            log.setResultParam(proceed.toString());
+            log.setRunningTime((int) runTime);
+            log.setServerIp(localAddr);
+            logService.saveLog(log);
+            return proceed;
+        } catch (Exception e) {
+            log.error("保存日志失败");
+            return proceed;
+        }
     }
 
     private String getRequestParam(JoinPoint joinPoint) {
@@ -98,7 +127,7 @@ public class LogCollection {
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()))) {
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
@@ -108,7 +137,7 @@ public class LogCollection {
     }
 
 
-    public String getMethodDesctiption(JoinPoint joinPoint) throws ClassNotFoundException {
+    private String getMethodDesctiption(JoinPoint joinPoint) throws ClassNotFoundException {
         String targetName = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
         Object[] arguments = joinPoint.getArgs();

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neeson.repository.LogMapper" >
+  <resultMap id="BaseResultMap" type="Log" >
+    <id column="idlog" property="idlog" jdbcType="INTEGER" />
+    <result column="client_ip" property="clientIp" jdbcType="VARCHAR" />
+    <result column="server_ip" property="serverIp" jdbcType="VARCHAR" />
+    <result column="running_time" property="runningTime" jdbcType="INTEGER" />
+    <result column="request_param" property="requestParam" jdbcType="VARCHAR" />
+    <result column="result_param" property="resultParam" jdbcType="VARCHAR" />
+    <result column="interface_method" property="interfaceMethod" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    idlog, client_ip, server_ip, running_time, request_param, result_param, interface_method,
+    description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from log
+    where idlog = #{idlog,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from log
+    where idlog = #{idlog,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Log" >
+    insert into log (idlog, client_ip, server_ip, 
+      running_time, request_param, result_param, 
+      interface_method, description)
+    values (#{idlog,jdbcType=INTEGER}, #{clientIp,jdbcType=VARCHAR}, #{serverIp,jdbcType=VARCHAR}, 
+      #{runningTime,jdbcType=INTEGER}, #{requestParam,jdbcType=VARCHAR}, #{resultParam,jdbcType=VARCHAR}, 
+      #{interfaceMethod,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="Log" >
+    insert into log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="idlog != null" >
+        idlog,
+      </if>
+      <if test="clientIp != null" >
+        client_ip,
+      </if>
+      <if test="serverIp != null" >
+        server_ip,
+      </if>
+      <if test="runningTime != null" >
+        running_time,
+      </if>
+      <if test="requestParam != null" >
+        request_param,
+      </if>
+      <if test="resultParam != null" >
+        result_param,
+      </if>
+      <if test="interfaceMethod != null" >
+        interface_method,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="idlog != null" >
+        #{idlog,jdbcType=INTEGER},
+      </if>
+      <if test="clientIp != null" >
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="serverIp != null" >
+        #{serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="runningTime != null" >
+        #{runningTime,jdbcType=INTEGER},
+      </if>
+      <if test="requestParam != null" >
+        #{requestParam,jdbcType=VARCHAR},
+      </if>
+      <if test="resultParam != null" >
+        #{resultParam,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceMethod != null" >
+        #{interfaceMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Log" >
+    update log
+    <set >
+      <if test="clientIp != null" >
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="serverIp != null" >
+        server_ip = #{serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="runningTime != null" >
+        running_time = #{runningTime,jdbcType=INTEGER},
+      </if>
+      <if test="requestParam != null" >
+        request_param = #{requestParam,jdbcType=VARCHAR},
+      </if>
+      <if test="resultParam != null" >
+        result_param = #{resultParam,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceMethod != null" >
+        interface_method = #{interfaceMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idlog = #{idlog,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Log" >
+    update log
+    set client_ip = #{clientIp,jdbcType=VARCHAR},
+      server_ip = #{serverIp,jdbcType=VARCHAR},
+      running_time = #{runningTime,jdbcType=INTEGER},
+      request_param = #{requestParam,jdbcType=VARCHAR},
+      result_param = #{resultParam,jdbcType=VARCHAR},
+      interface_method = #{interfaceMethod,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where idlog = #{idlog,jdbcType=INTEGER}
+  </update>
+</mapper>
