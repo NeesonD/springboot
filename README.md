@@ -12,17 +12,17 @@
 * [x] 使用spring集成的方式
 
 TODO
-* [x] springboot+mina实现长连接
-* 保存session，实现推送
+* [x] springboot+mina实现长连接(推送)
+
 
 * [x] springboot+Scheduled实现定时
 
 * [ ] springboot+Quartz
-* quartz实现集群
+
 
 * [ ] springboot+netty实现聊天室
 
-* [ ] springboot+redis
+* [ ] springboot+redis实现单点登录
 
 * [ ] springboot+spring security
 
