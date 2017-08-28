@@ -3,6 +3,8 @@ package com.neeson.repository;
 
 import com.neeson.domain.Log;
 
+import java.util.List;
+
 public interface LogMapper {
     int deleteByPrimaryKey(Integer idlog);
 
@@ -11,6 +13,8 @@ public interface LogMapper {
     int insertSelective(Log record);
 
     Log selectByPrimaryKey(Integer idlog);
+
+    List<Log> listByClientIp(String clientIp);
 
     int updateByPrimaryKeySelective(Log record);
 

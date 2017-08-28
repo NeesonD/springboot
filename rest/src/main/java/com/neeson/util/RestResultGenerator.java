@@ -60,7 +60,7 @@ public class RestResultGenerator {
         return responseResult;
     }
 
-    public static ResponseResult genReeorResult(String message){
+    public static ResponseResult genErrorResult(String message){
         ResponseResult result = ResponseResult.newInstance();
         result.setSuccess(false);
         result.setMessage(message);

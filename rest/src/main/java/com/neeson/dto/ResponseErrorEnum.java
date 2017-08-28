@@ -9,7 +9,8 @@ import java.util.Map;
 public enum ResponseErrorEnum {
 
     ILLEGAL_PARAMS("ILLEGAL_PARAMS","请求参数不合法"),
-    INTERNAL_SERVER_ERROR("INTERNAL_SERVER_ERROR", "接口内部异常!");
+    INTERNAL_SERVER_ERROR("INTERNAL_SERVER_ERROR", "接口内部异常!"),
+    MY_EXCEPTION("MY_EXCEPTION","自定义异常");
 
     private String code;
     private String message;

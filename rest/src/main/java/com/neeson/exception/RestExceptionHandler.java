@@ -35,4 +35,10 @@ public class RestExceptionHandler {
         return RestResultGenerator.genErrorResult(ResponseErrorEnum.ILLEGAL_PARAMS);
     }
 
+    @ExceptionHandler(MyException.class)
+    @ResponseBody
+    private <T> ResponseResult<T> myException(MyException e){
+        return RestResultGenerator.genErrorResult(e.getMessage());
+    }
+
 }

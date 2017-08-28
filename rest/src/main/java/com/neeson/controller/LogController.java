@@ -2,12 +2,14 @@ package com.neeson.controller;
 
 import com.neeson.domain.Log;
 import com.neeson.dto.ResponseResult;
+import com.neeson.exception.MyException;
 import com.neeson.service.LogService;
 import com.neeson.util.RestResultGenerator;
+import io.swagger.annotations.ApiImplicitParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -15,19 +17,24 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/log")
+@Slf4j
 public class LogController {
 
     @Autowired
     private LogService logService;
 
-    @GetMapping(value = "/list")
-    public ResponseResult<List<Log>> listLog(String clientIp){
+    @GetMapping(value = "/list/{clientIp}")
+    @ApiImplicitParam(name = "clientIp", paramType = "path", dataType = "String")
+    public ResponseResult<List<Log>> listLog(@PathVariable String clientIp) throws Exception{
+        if (clientIp.equals("1")){
+         throw new MyException("参数为空");
+        }
         List<Log> logList = logService.listLog(clientIp);
-        return RestResultGenerator.genResult(logList,"成功！");
+        return RestResultGenerator.genResult(logList, "成功！");
     }
 
     @PostMapping(value = "saveUser")
-    public ResponseResult saveUser(@Valid @RequestBody Log log) {
+    public ResponseResult saveUser(@RequestBody Log log) {
         logService.saveLog(log);
         return RestResultGenerator.genResult("保存成功!");
     }
