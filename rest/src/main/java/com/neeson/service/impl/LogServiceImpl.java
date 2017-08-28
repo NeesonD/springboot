@@ -6,6 +6,8 @@ import com.neeson.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by daile on 2017/8/17.
  */
@@ -18,5 +20,10 @@ public class LogServiceImpl implements LogService {
     @Override
     public void saveLog(Log log) {
         logMapper.insert(log);
+    }
+
+    @Override
+    public List<Log> listLog(String clientIp) {
+        return null;
     }
 }
