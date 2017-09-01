@@ -6,6 +6,7 @@
 * [x] mockmvc实现controller层单元测试
 * [x] druid实现sql监控
 * [ ] 分页
+* [x] 统一响应体和统一异常处理
 
 ### 1.2 filter/listener/servlet在springboot中的使用
 * [x] 使用注解的形式
@@ -14,11 +15,9 @@
 TODO
 * [x] springboot+mina实现长连接(推送)
 
-
 * [x] springboot+Scheduled实现定时
 
-* [ ] springboot+Quartz
-
+* [x] springboot+Quartz
 
 * [ ] springboot+netty实现聊天室
 

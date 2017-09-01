@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * 统一响应体
  * Created by daile on 2017/8/24.
  */
 @RestController
