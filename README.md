@@ -13,18 +13,20 @@
 * [x] 使用spring集成的方式
 
 TODO
-* [x] springboot+mina实现长连接(推送)
+* [x] springboot+mina
 
-* [x] springboot+Scheduled实现定时
+* [x] springboot+Scheduled
 
 * [x] springboot+Quartz
 
-* [ ] springboot+netty实现聊天室
+* [ ] springboot+netty
 
-* [ ] springboot+redis实现单点登录
+* [ ] springboot+redis
 
 * [ ] springboot+spring security
 
 * [ ] springboot+webSocket
+
+* [ ] springboot+zookeeper+kafka+dubbo
 
 
