@@ -5,6 +5,7 @@
 # IntelliJ project files
 .idea
 *.iml
+springboot.iml
 out
 gen### Java template
 # Compiled class file
@@ -31,3 +32,6 @@ gen### Java template
 hs_err_pid*
 
 
+segments/mbean/src/test/
+segments/mbean/target/classes/application.properties
+segments/mbean/target/generated-sources/
