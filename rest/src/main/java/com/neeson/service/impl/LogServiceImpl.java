@@ -1,6 +1,7 @@
 package com.neeson.service.impl;
 
 import com.neeson.domain.Log;
+import com.neeson.exception.MyException;
 import com.neeson.repository.LogMapper;
 import com.neeson.service.LogService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,5 +28,13 @@ public class LogServiceImpl implements LogService {
     @Override
     public List<Log> listLog(String clientIp) {
         return logMapper.listByClientIp(clientIp);
+    }
+
+    @Override
+    public Log getLog() {
+        throw new MyException("参数为空000");
+//        Log log = new Log();
+//        log.setIdlog(111111);
+//        return log;
     }
 }

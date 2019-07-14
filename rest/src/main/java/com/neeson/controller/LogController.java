@@ -26,12 +26,13 @@ public class LogController {
 
     @GetMapping(value = "/list/{clientIp}")
     @ApiImplicitParam(name = "clientIp", paramType = "path", dataType = "String")
-    public ResponseResult<List<Log>> listLog(@PathVariable String clientIp) throws Exception{
-        if (clientIp.equals("1")){
-         throw new MyException("参数为空");
-        }
-        List<Log> logList = logService.listLog(clientIp);
-        return RestResultGenerator.genResult(logList, "成功！");
+    public ResponseResult listLog(@PathVariable String clientIp) {
+//        if (clientIp.equals("1")){
+//
+//        }
+        //List<Log> logList = logService.listLog(clientIp);
+        Log log = logService.getLog();
+        return RestResultGenerator.genResult(log, "成功！");
     }
 
     @PostMapping(value = "saveUser")

@@ -13,4 +13,6 @@ public interface LogService {
 
     List<Log> listLog(String clientIp);
 
+    Log getLog();
+
 }

@@ -17,7 +17,7 @@ public class CityServiceImpl implements CityService{
 
     @Override
     public City getCityById(Integer id) {
-       return cityMapper.selectByPrimaryKey(id);
+       return new City(1L,"neeson");
     }
 
     @Override
